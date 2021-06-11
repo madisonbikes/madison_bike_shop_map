@@ -1,8 +1,7 @@
-# Bike shop and repair station map
-Map of Madison bike shops and repair stations for the [Madison Bikes website](https//www.madisonbikes.org/bike-shop-map), using [Leaflet](https://rstudio.github.io/leaflet/) and RMarkdown.
+Map of possible locations for Madison Bike Week. This is a fork from the map of Madison bike shops and repair stations for the [Madison Bikes website](https//www.madisonbikes.org/bike-shop-map), using [Leaflet](https://rstudio.github.io/leaflet/) and RMarkdown.
 
 ## Data
-Bike shop info was manually compiled and entered into a Google Sheet; repair station data is imported from the [City of Madison Open Data portal](https://data-cityofmadison.opendata.arcgis.com/datasets/bike-repair-station).
+Locations were manually geocoded and entered into a Google Sheet.
 
 ## Deployment
 The Madison Bikes website runs on Wordpress, which means there are some manual steps required to set up the map.[^1]
