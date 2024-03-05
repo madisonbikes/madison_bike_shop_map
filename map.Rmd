@@ -20,7 +20,7 @@ library(sf)
 gs4_deauth()
 
 #read sheet with location info
-df <- read_sheet("https://docs.google.com/spreadsheets/d/1G41V3OVAI5P67d7L9Xl0DNLsjpnCRn3V00WylrZ5kHo/")
+df <- read_sheet("https://docs.google.com/spreadsheets/d/1JuUW2OBn3sX2gzyDLOAGoyoX1kwd2qbkwQVo341WrbQ/edit#gid=0")
 
 # # read repair stations file from City of Madison Open Data portal
 # download.file("https://opendata.arcgis.com/datasets/76d43c3b570246bb98d6f44f0400c000_34.zip", "data/repair_stations.zip")
@@ -35,6 +35,7 @@ df <- read_sheet("https://docs.google.com/spreadsheets/d/1G41V3OVAI5P67d7L9Xl0DN
 
 locations <- df %>%
   separate(Location, into = c("Lat", "Long"), sep = ",") %>% 
+  mutate(Note = as.character(Note)) |> 
   replace_na(list(Note = "")) %>% 
   mutate(pop = paste0(Name, "<br>Note: ", Note)) %>% #popup field; we can add stuff later
   mutate(Lat = as.numeric(Lat), Long = as.numeric(Long))
@@ -53,7 +54,7 @@ location_icon_full <- makeAwesomeIcon(icon = "bicycle",
 
 locations %>% 
   leaflet(width = "90%") %>% 
-  addProviderTiles(provider = "Stamen.TonerLite") %>%
+  addProviderTiles(provider = "OpenStreetMap.Mapnik") %>%
   addAwesomeMarkers(data = locations %>% filter(Status == "nothing"), lng = ~Long, lat = ~Lat, popup = ~pop, icon = location_icon_nothing) %>% 
   addAwesomeMarkers(data = locations %>% filter(Status == "something"), lng = ~Long, lat = ~Lat, popup = ~pop, icon = location_icon_something) %>% 
     addAwesomeMarkers(data = locations %>% filter(Status == "full"), lng = ~Long, lat = ~Lat, popup = ~pop, icon = location_icon_full)
